@@ -1,6 +1,8 @@
 import streamlit as st
 from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
+now = datetime.utcnow() + timedelta(hours=5, minutes=30)
+
 import base64
 import os
 
@@ -110,11 +112,12 @@ if submitted:
         academic_year=academic_year,
         school_name=school_name,
         department_name=department_name,
-        date=datetime.now().strftime("%d-%m-%Y"),
-        time=datetime.now().strftime("%I:%M %p"),
+        date=now.strftime("%d-%m-%Y"),
+        time=now.strftime("%I:%M %p"),
         report=report,
         logo_base64=logo_base64
     )
 
     st.download_button("📄 Download Report as HTML", data=html, file_name="iqac_audit_report.html", mime="text/html")
     st.components.v1.html(html, height=800, scrolling=True)
+
